@@ -1,0 +1,369 @@
+From 5ee196c24508d013dc773cab53be30b680177b55 Mon Sep 17 00:00:00 2001
+From: Ray Strode <rstrode@redhat.com>
+Date: Thu, 15 Jul 2010 13:58:14 -0400
+Subject: [PATCH] Allow Super as valid mouse modifier
+
+gnome-panel uses metacity's mouse modifier gconf key to figure
+out which key to listen to when moving panels around.  This
+works fine for Alt, but the more exotic "virtual" modifiers fall
+over.
+
+This commit fixes that problem by mapping the virtual modifiers back
+to their real counterparts. This gives us a value that can be
+directly compared with the event->state field from button press
+events.
+---
+ gnome-panel/panel-bindings.c |    4 +-
+ gnome-panel/panel-toplevel.c |    2 +-
+ gnome-panel/panel-xutils.c   |   84 ++++++++++++++++++++++++++++++++++++++++++
+ gnome-panel/panel-xutils.h   |    2 +
+ 4 files changed, 90 insertions(+), 2 deletions(-)
+
+diff --git a/gnome-panel/panel-bindings.c b/gnome-panel/panel-bindings.c
+index e8fbff5..962405c 100644
+--- a/gnome-panel/panel-bindings.c
++++ b/gnome-panel/panel-bindings.c
+@@ -31,6 +31,7 @@
+ 
+ #include "panel-gconf.h"
+ #include "panel-profile.h"
++#include "panel-xutils.h"
+ 
+ #define BINDINGS_PREFIX    "/apps/metacity/window_keybindings"
+ #define MOUSE_MODIFIER_DIR "/apps/metacity/general"
+@@ -293,10 +294,11 @@ panel_bindings_set_entries (GtkBindingSet *binding_set)
+ guint
+ panel_bindings_get_mouse_button_modifier_keymask (void)
+ {
++
+ 	g_assert (mouse_button_modifier_keymask != 0);
+ 
+ 	if (!initialised)
+ 		panel_bindings_initialise ();
+ 
+-	return mouse_button_modifier_keymask;
++	return panel_get_real_modifier_mask (mouse_button_modifier_keymask);
+ }
+diff --git a/gnome-panel/panel-toplevel.c b/gnome-panel/panel-toplevel.c
+index 8470591..e8a98de 100644
+--- a/gnome-panel/panel-toplevel.c
++++ b/gnome-panel/panel-toplevel.c
+@@ -3259,7 +3259,7 @@ panel_toplevel_button_press_event (GtkWidget      *widget,
+ 	 * moves are considered. We don't this for non-expanded panels since we
+ 	 * only have the handles that the user can grab. */
+ 	if ((toplevel->priv->expand || toplevel->priv->attached) &&
+-	    (event->state & gtk_accelerator_get_default_mod_mask ()) != panel_bindings_get_mouse_button_modifier_keymask ())
++	    (event->state & GDK_MODIFIER_MASK) != panel_bindings_get_mouse_button_modifier_keymask ())
+ 		return FALSE;
+ 
+ 	gdk_window_get_user_data (event->window, (gpointer)&event_widget);
+diff --git a/gnome-panel/panel-xutils.c b/gnome-panel/panel-xutils.c
+index 9173b68..64b7c05 100644
+--- a/gnome-panel/panel-xutils.c
++++ b/gnome-panel/panel-xutils.c
+@@ -170,3 +170,87 @@ panel_warp_pointer (GdkWindow *gdk_window,
+ 	XWarpPointer (display, None, window, 0, 0, 0, 0, x, y);
+ 	gdk_error_trap_pop ();
+ }
++
++guint
++panel_get_real_modifier_mask (guint mask)
++{
++	guint real_mask;
++	int i, min_keycode, max_keycode, keysyms_per_keycode;
++	int max_keycodes_per_modifier;
++	KeySym *keysyms_for_keycodes;
++	XModifierKeymap *modifier_keymap;
++
++	real_mask = mask & ((Mod5Mask << 1) - 1);
++
++	/* Already real */
++	if (mask == real_mask) {
++		return mask;
++	}
++
++	XDisplayKeycodes (GDK_DISPLAY (), &min_keycode, &max_keycode);
++	keysyms_for_keycodes = XGetKeyboardMapping (GDK_DISPLAY (),
++						    min_keycode,
++						    max_keycode - min_keycode + 1,
++						    &keysyms_per_keycode);
++
++	modifier_keymap = XGetModifierMapping (GDK_DISPLAY ());
++	max_keycodes_per_modifier = modifier_keymap->max_keypermod;
++
++	/* Loop through all the modifiers and find out which "real"
++	 * (Mod2..Mod5) modifiers Super, Hyper, and Meta are mapped to.
++	 */
++	for (i = Mod2MapIndex * max_keycodes_per_modifier;
++	     i < (Mod5MapIndex + 1) * max_keycodes_per_modifier;
++	     i++) {
++		int keycode;
++		int j;
++		KeySym *keysyms_for_keycode;
++		int map_index;
++		int map_mask;
++
++		keycode = modifier_keymap->modifiermap[i];
++
++		/* The array is sparse, there may be some
++		 * empty entries.  Filter those out
++		 * (along with any invalid entries)
++		 */
++		if (keycode < min_keycode || keycode > max_keycode)
++			continue;
++
++		keysyms_for_keycode = keysyms_for_keycodes +
++		                      (keycode - min_keycode) * keysyms_per_keycode;
++
++		map_index = i / max_keycodes_per_modifier;
++
++		g_assert (map_index <= Mod5MapIndex);
++
++		map_mask = 1 << map_index;
++
++		for (j = 0; j < keysyms_per_keycode; j++) {
++			switch (keysyms_for_keycode[j]) {
++				case XK_Super_L:
++				case XK_Super_R:
++					if (mask & GDK_SUPER_MASK)
++						real_mask |= map_mask;
++					break;
++				case XK_Hyper_L:
++				case XK_Hyper_R:
++					if (mask & GDK_HYPER_MASK)
++						real_mask |= map_mask;
++					break;
++				case XK_Meta_L:
++				case XK_Meta_R:
++					if (mask & GDK_META_MASK)
++						real_mask |= map_mask;
++					break;
++				default:
++					break;
++			}
++		}
++	}
++
++	XFreeModifiermap (modifier_keymap);
++	XFree (keysyms_for_keycodes);
++
++	return real_mask;
++}
+diff --git a/gnome-panel/panel-xutils.h b/gnome-panel/panel-xutils.h
+index f73a1a0..10e3f62 100644
+--- a/gnome-panel/panel-xutils.h
++++ b/gnome-panel/panel-xutils.h
+@@ -53,6 +53,8 @@ void panel_warp_pointer           (GdkWindow             *gdk_window,
+ 				   int                    x,
+ 				   int                    y);
+ 
++guint panel_get_real_modifier_mask (guint modifier_mask);
++
+ G_END_DECLS
+ 
+ #endif /* __PANEL_XUTILS_H__ */
+-- 
+1.7.1
+
+diff --git a/gnome-panel/panel-toplevel.c b/gnome-panel/panel-toplevel.c
+index c8d0e1c..ce5ba8a 100644
+--- a/gnome-panel/panel-toplevel.c
++++ b/gnome-panel/panel-toplevel.c
+@@ -3280,6 +3280,7 @@ panel_toplevel_button_press_event (GtkWidget      *widget,
+ {
+ 	PanelToplevel *toplevel;
+ 	GtkWidget     *event_widget;
++	guint          irrelevant_state;
+ 
+ 	g_return_val_if_fail (PANEL_IS_TOPLEVEL (widget), FALSE);
+ 
+@@ -3291,11 +3292,15 @@ panel_toplevel_button_press_event (GtkWidget      *widget,
+ 	if (toplevel->priv->animating)
+ 		return FALSE;
+ 
++	irrelevant_state = panel_get_real_modifier_mask_for_keysym (XK_Mode_switch);
++	irrelevant_state |= panel_get_real_modifier_mask_for_keysym (XK_Scroll_Lock);
++	irrelevant_state |= panel_get_real_modifier_mask_for_keysym (XK_Num_Lock);
++
+ 	/* Get the mouse-button modifier from metacity so that only intentional
+ 	 * moves are considered. We don't this for non-expanded panels since we
+ 	 * only have the handles that the user can grab. */
+ 	if ((toplevel->priv->expand || toplevel->priv->attached) &&
+-	    (event->state & GDK_MODIFIER_MASK) != panel_bindings_get_mouse_button_modifier_keymask ())
++	    (event->state & GDK_MODIFIER_MASK & ~irrelevant_state) != panel_bindings_get_mouse_button_modifier_keymask ())
+ 		return FALSE;
+ 
+ 	gdk_window_get_user_data (event->window, (gpointer)&event_widget);
+diff --git a/gnome-panel/panel-xutils.c b/gnome-panel/panel-xutils.c
+index 16cdf67..5a2f57b 100644
+--- a/gnome-panel/panel-xutils.c
++++ b/gnome-panel/panel-xutils.c
+@@ -32,6 +32,11 @@
+ #include <X11/Xlib.h>
+ #include <X11/Xatom.h>
+ 
++typedef gboolean (* PanelModifierKeySymFunc) (guint     map_mask,
++					      KeySym    keysym,
++					      gpointer  data,
++					      guint    *output);
++
+ static Atom net_wm_window_type        = None;
+ static Atom net_wm_window_type_dock   = None;
+ static Atom net_wm_window_type_normal = None;
+@@ -169,24 +174,19 @@ panel_warp_pointer (GdkWindow *gdk_window,
+ 	gdk_error_trap_push ();
+ 	XWarpPointer (display, None, window, 0, 0, 0, 0, x, y);
+ 	gdk_error_trap_pop ();
++
+ }
+ 
+-guint
+-panel_get_real_modifier_mask (guint mask)
++static guint
++foreach_modifier_keysym (PanelModifierKeySymFunc modifier_keysym_func,
++			 gpointer                data)
+ {
+-	guint real_mask;
++	guint output;
+ 	int i, min_keycode, max_keycode, keysyms_per_keycode;
+ 	int max_keycodes_per_modifier;
+ 	KeySym *keysyms_for_keycodes;
+ 	XModifierKeymap *modifier_keymap;
+ 
+-	real_mask = mask & ((Mod5Mask << 1) - 1);
+-
+-	/* Already real */
+-	if (mask == real_mask) {
+-		return mask;
+-	}
+-
+ 	XDisplayKeycodes (GDK_DISPLAY (), &min_keycode, &max_keycode);
+ 	keysyms_for_keycodes = XGetKeyboardMapping (GDK_DISPLAY (),
+ 						    min_keycode,
+@@ -196,6 +196,7 @@ panel_get_real_modifier_mask (guint mask)
+ 	modifier_keymap = XGetModifierMapping (GDK_DISPLAY ());
+ 	max_keycodes_per_modifier = modifier_keymap->max_keypermod;
+ 
++	output = 0;
+ 	/* Loop through all the modifiers and find out which "real"
+ 	 * (Mod2..Mod5) modifiers Super, Hyper, and Meta are mapped to.
+ 	 * Note, Mod1 is used by the Alt modifier */
+@@ -226,24 +227,11 @@ panel_get_real_modifier_mask (guint mask)
+ 		map_mask = 1 << map_index;
+ 
+ 		for (j = 0; j < keysyms_per_keycode; j++) {
+-			switch (keysyms_for_keycode[j]) {
+-				case XK_Super_L:
+-				case XK_Super_R:
+-					if (mask & GDK_SUPER_MASK)
+-						real_mask |= map_mask;
+-					break;
+-				case XK_Hyper_L:
+-				case XK_Hyper_R:
+-					if (mask & GDK_HYPER_MASK)
+-						real_mask |= map_mask;
+-					break;
+-				case XK_Meta_L:
+-				case XK_Meta_R:
+-					if (mask & GDK_META_MASK)
+-						real_mask |= map_mask;
+-					break;
+-				default:
+-					break;
++			if (modifier_keysym_func (map_mask,
++						  keysyms_for_keycode[j],
++						  data,
++						  &output)) {
++				break;
+ 			}
+ 		}
+ 	}
+@@ -251,5 +239,76 @@ panel_get_real_modifier_mask (guint mask)
+ 	XFreeModifiermap (modifier_keymap);
+ 	XFree (keysyms_for_keycodes);
+ 
++	return output;
++}
++
++static gboolean
++find_mask_from_keysym (guint     map_mask,
++		       KeySym    keysym,
++		       gpointer  data,
++		       guint    *output)
++{
++	if (keysym == GPOINTER_TO_UINT (data)) {
++		*output = map_mask;
++		return TRUE;
++	}
++	return FALSE;
++}
++
++guint
++panel_get_real_modifier_mask_for_keysym (KeySym keysym)
++{
++	guint real_mask;
++
++	real_mask = foreach_modifier_keysym (find_mask_from_keysym, GUINT_TO_POINTER (keysym));
++
++	return real_mask;
++}
++
++static gboolean
++map_virtual_modifiers (guint     map_mask,
++		       KeySym    keysym,
++		       gpointer  data,
++		       guint    *output)
++{
++	guint mask = GPOINTER_TO_UINT (data);
++
++	switch (keysym) {
++		case XK_Super_L:
++		case XK_Super_R:
++			if (mask & GDK_SUPER_MASK)
++				*output |= map_mask;
++			break;
++		case XK_Hyper_L:
++		case XK_Hyper_R:
++			if (mask & GDK_HYPER_MASK)
++				*output |= map_mask;
++			break;
++		case XK_Meta_L:
++		case XK_Meta_R:
++			if (mask & GDK_META_MASK)
++				*output |= map_mask;
++			break;
++		default:
++			break;
++	}
++
++	return FALSE;
++}
++
++guint
++panel_get_real_modifier_mask (guint mask)
++{
++	guint real_mask;
++
++	real_mask = mask & ((Mod5Mask << 1) - 1);
++
++	/* Already real */
++	if (mask == real_mask) {
++		return mask;
++	}
++
++	real_mask |= foreach_modifier_keysym (map_virtual_modifiers, GUINT_TO_POINTER (mask));
++
+ 	return real_mask;
+ }
+diff --git a/gnome-panel/panel-xutils.h b/gnome-panel/panel-xutils.h
+index 10e3f62..398e42d 100644
+--- a/gnome-panel/panel-xutils.h
++++ b/gnome-panel/panel-xutils.h
+@@ -54,6 +54,7 @@ void panel_warp_pointer           (GdkWindow             *gdk_window,
+ 				   int                    y);
+ 
+ guint panel_get_real_modifier_mask (guint modifier_mask);
++guint panel_get_real_modifier_mask_for_keysym (KeySym keysym);
+ 
+ G_END_DECLS
+ 

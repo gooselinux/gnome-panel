@@ -1,0 +1,1473 @@
+<?xml version="1.0"?>
+<gconfschemafile>
+
+<!-- 
+These are the factory defaults for what's on the panel. To change them 
+locally, you can edit this file and rebuild the RPM, or you can just 
+set values in the /etc/gconf/gconf.xml.defaults source using gconftool - 
+see http://www.gnome.org/projects/gconf/
+-->
+
+    <schemalist>    
+
+
+
+<!--
+*********************************************************************************
+** Small Screen Setup: 1 edge panel of size 24                                 **
+*********************************************************************************
+-->
+
+<!-- ********************************* -->
+<!-- General panel properties :: START -->
+<!-- ********************************* -->
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/general/show_program_list</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short>Show the program listing in the Run box</short>
+          <long>Show the program listing by default when opening the Run box</long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/general/enable_program_list</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>true</default>
+        <locale name="C">
+          <short>Enable the program listing in the run box</short>
+          <long>Enable the program listing in the run box</long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/general/panel_id_list</key>
+        <owner>panel</owner>
+        <type>list</type>
+	<list_type>string</list_type>
+        <default>[bottom_panel]</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/general/applet_id_list</key>
+        <owner>panel</owner>
+        <type>list</type>
+	<list_type>string</list_type>
+        <default>[]</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/general/object_id_list</key>
+        <owner>panel</owner>
+        <type>list</type>
+	<list_type>string</list_type>
+        <default>[]</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+<!-- ******************************* -->
+<!-- General panel properties :: END -->
+<!-- ******************************* -->
+
+<!-- ****************************** -->      
+<!-- Edge panel properties :: START -->
+<!-- ****************************** -->
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/panels/bottom_panel/panel_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>edge-panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/panels/bottom_panel/panel_size</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>panel-size-small</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/panels/bottom_panel/panel_hide_mode</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>0</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/panels/bottom_panel/panel_hide_state</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>0</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/panels/bottom_panel/screen_id</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>0</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/panels/bottom_panel/screen_edge</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>panel-edge-bottom</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/panels/bottom_panel/hide_buttons_enabled</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/panels/bottom_panel/hide_button_pixmaps_enabled</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>true</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/panels/bottom_panel/panel_background_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>no-background</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/panels/bottom_panel/panel_background_pixmap</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default></default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/panels/bottom_panel/panel_background_pixmap_fit</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>true</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/panels/bottom_panel/panel_background_pixmap_stretch</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/panels/bottom_panel/panel_background_pixmap_rotate</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>true</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/small/panels/bottom_panel/panel_background_color</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>#000000</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+<!-- **************************** -->      
+<!-- Edge panel properties :: END -->
+<!-- **************************** -->
+     
+
+<!--
+******************************************************************************************
+** Medium Screen Setup: 1 edge panel of size 36, 1 menu panel of size 24                **
+******************************************************************************************
+-->
+
+<!-- ********************************* -->
+<!-- General panel properties :: START -->
+<!-- ********************************* -->
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/general/advanced_run_dialog</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/general/panel_id_list</key>
+        <owner>panel</owner>
+        <type>list</type>
+	<list_type>string</list_type>
+        <default>[bottom_panel]</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>     
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/general/applet_id_list</key>
+        <owner>panel</owner>
+        <type>list</type>
+	<list_type>string</list_type>
+        <default>[tasklist_applet,pager_applet,tray_applet,clock_applet]</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema> 
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/general/object_id_list</key>
+        <owner>panel</owner>
+        <type>list</type>
+	<list_type>string</list_type>
+        <default>[main_menu,web_browser_launcher,email_launcher,wordprocessor_launcher,presentations_launcher,spreadsheet_launcher,print_launcher]</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>     
+
+<!-- ******************************* -->
+<!-- General panel properties :: END -->
+<!-- ******************************* -->
+
+<!-- ****************************** -->      
+<!-- Edge panel properties :: START -->
+<!-- ****************************** -->
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/panels/bottom_panel/panel_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>edge-panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/panels/bottom_panel/panel_size</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>panel-size-medium</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/panels/bottom_panel/panel_hide_mode</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>0</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/panels/bottom_panel/panel_hide_state</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>0</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/panels/bottom_panel/screen_id</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>0</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/panels/bottom_panel/screen_edge</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>panel-edge-bottom</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/panels/bottom_panel/hide_buttons_enabled</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/panels/bottom_panel/hide_button_pixmaps_enabled</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/panels/bottom_panel/panel_background_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>no-background</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/panels/bottom_panel/panel_background_pixmap</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default></default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/panels/bottom_panel/panel_background_pixmap_fit</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>true</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/panels/bottom_panel/panel_background_pixmap_stretch</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/panels/bottom_panel/panel_background_pixmap_rotate</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>true</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/panels/bottom_panel/panel_background_color</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>#000000</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <!-- Main Menu -->
+
+      <!-- add custom_icon and custom_icon_file keys to replace icon -->
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/main_menu/object_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>menu-object</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/main_menu/panel_id</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bottom_panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/main_menu/path</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>applications:///</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/main_menu/main-menu</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>true</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/main_menu/global-menu</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <!-- The person who made this a bitfield stored as an int needs some buttkicking -->
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/main_menu/main-menu-flags</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>24580</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <!-- Launchers -->
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/web_browser_launcher/object_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>launcher-object</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/web_browser_launcher/launcher_location</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>applications:///Internet/redhat-web.desktop</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/web_browser_launcher/panel_id</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bottom_panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/web_browser_launcher/position</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>50</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/web_browser_launcher/panel_right_stick</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/terminal_launcher/object_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>launcher-object</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/terminal_launcher/launcher_location</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>applications:///System/gnome-terminal.desktop</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/terminal_launcher/panel_id</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bottom_panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/terminal_launcher/position</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>300</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/terminal_launcher/panel_stick</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/email_launcher/object_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>launcher-object</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/email_launcher/launcher_location</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>applications:///Internet/redhat-email.desktop</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/email_launcher/panel_id</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bottom_panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/email_launcher/position</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>100</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/email_launcher/panel_right_stick</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+         <!-- start -->
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/wordprocessor_launcher/object_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>launcher-object</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/wordprocessor_launcher/launcher_location</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>applications:///Office/redhat-word-processor.desktop</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/wordprocessor_launcher/panel_id</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bottom_panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/wordprocessor_launcher/position</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>150</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/wordprocessor_launcher/panel_right_stick</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+         <!-- end -->
+
+
+
+         <!-- start -->
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/presentations_launcher/object_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>launcher-object</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/presentations_launcher/launcher_location</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>applications:///Office/redhat-presentations.desktop</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/presentations_launcher/panel_id</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bottom_panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/presentations_launcher/position</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>200</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/presentations_launcher/panel_right_stick</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+         <!-- end -->
+
+
+
+         <!-- start -->
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/spreadsheet_launcher/object_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>launcher-object</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/spreadsheet_launcher/launcher_location</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>applications:///Office/redhat-spreadsheet.desktop</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/spreadsheet_launcher/panel_id</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bottom_panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/spreadsheet_launcher/position</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>250</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/spreadsheet_launcher/panel_right_stick</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+         <!-- end -->
+
+
+         <!-- start -->
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/print_launcher/object_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>launcher-object</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/print_launcher/launcher_location</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>applications:///Accessories/redhat-print.desktop</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/print_launcher/panel_id</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bottom_panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/print_launcher/position</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>260</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/print_launcher/panel_right_stick</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+         <!-- end -->
+
+
+
+
+         <!-- start -->
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/help_launcher/object_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>launcher-object</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/help_launcher/launcher_location</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>applications:///gnome-yelp.desktop</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/help_launcher/panel_id</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bottom_panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/help_launcher/position</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>300</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/objects/help_launcher/panel_right_stick</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+         <!-- end -->
+
+     
+      <!-- Applets -->
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/tasklist_applet/object_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bonobo-applet</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/tasklist_applet/panel_id</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bottom_panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/tasklist_applet/position</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>375</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/tasklist_applet/bonobo_iid</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>OAFIID:GNOME_TasklistApplet</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/tasklist_applet/panel_right_stick</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/pager_applet/object_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bonobo-applet</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/pager_applet/panel_id</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bottom_panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/pager_applet/position</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>325</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/pager_applet/bonobo_iid</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>OAFIID:GNOME_PagerApplet</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/pager_applet/panel_right_stick</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <!-- clock -->
+ 
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/clock_applet/object_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bonobo-applet</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/clock_applet/panel_id</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bottom_panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/clock_applet/position</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>0</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/clock_applet/bonobo_iid</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>OAFIID:GNOME_ClockApplet</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/clock_applet/panel_right_stick</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>true</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+
+      <!-- tray -->
+ 
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/tray_applet/object_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bonobo-applet</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/tray_applet/panel_id</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>bottom_panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/tray_applet/position</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>70</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/tray_applet/bonobo_iid</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>OAFIID:GNOME_SystemTrayApplet</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/medium/applets/tray_applet/panel_right_stick</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>true</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+            
+
+<!-- *********************************** -->
+<!-- Panel Items for Edge Panel :: END -->
+<!-- *********************************** -->
+
+<!-- **************************** -->      
+<!-- Edge panel properties :: END -->
+<!-- **************************** -->
+
+<!-- 
+***********************************************************************************
+** Large Screen Setup: 1 edge panel of size 48, 1 menu panel of size 36          **
+***********************************************************************************
+-->
+
+<!-- ********************************* -->
+<!-- General panel properties :: START -->
+<!-- ********************************* -->
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/general/advanced_run_dialog</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/general/panel_id_list</key>
+        <owner>panel</owner>
+        <type>list</type>
+	<list_type>string</list_type>
+        <default>[bottom_panel]</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/general/applet_id_list</key>
+        <owner>panel</owner>
+        <type>list</type>
+	<list_type>string</list_type>
+        <default>[]</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/general/object_id_list</key>
+        <owner>panel</owner>
+        <type>list</type>
+	<list_type>string</list_type>
+        <default>[]</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+<!-- ******************************* -->
+<!-- General panel properties :: END -->
+<!-- ******************************* -->
+
+<!-- ****************************** -->      
+<!-- Edge panel properties :: START -->
+<!-- ****************************** -->
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/panels/bottom_panel/panel_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>edge-panel</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/panels/bottom_panel/panel_size</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>panel-size-medium</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/panels/bottom_panel/panel_hide_mode</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>0</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/panels/bottom_panel/panel_hide_state</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>0</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/panels/bottom_panel/screen_id</key>
+        <owner>panel</owner>
+        <type>int</type>
+        <default>0</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/panels/bottom_panel/screen_edge</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>panel-edge-bottom</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/panels/bottom_panel/hide_buttons_enabled</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/panels/bottom_panel/hide_button_pixmaps_enabled</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>true</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/panels/bottom_panel/panel_background_type</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>no-background</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/panels/bottom_panel/panel_background_pixmap</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default> </default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/panels/bottom_panel/panel_background_pixmap_fit</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>true</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/panels/bottom_panel/panel_background_pixmap_stretch</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>false</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+      
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/panels/bottom_panel/panel_background_pixmap_rotate</key>
+        <owner>panel</owner>
+        <type>bool</type>
+        <default>true</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+     
+      <schema>
+        <key>/schemas/apps/panel/default_profiles/large/panels/bottom_panel/panel_background_color</key>
+        <owner>panel</owner>
+        <type>string</type>
+        <default>#000000</default>
+        <locale name="C">
+          <short></short>
+          <long></long>
+        </locale>
+      </schema>
+
+<!-- **************************** -->      
+<!-- Edge panel properties :: END -->
+<!-- **************************** -->
+
+      
+  </schemalist>
+  
+</gconfschemafile>

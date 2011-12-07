@@ -1,0 +1,60 @@
+diff --git a/gnome-panel/menu.c b/gnome-panel/menu.c
+index 333753d..1d6d112 100644
+--- a/gnome-panel/menu.c
++++ b/gnome-panel/menu.c
+@@ -1212,7 +1212,8 @@ drag_data_get_string_cb (GtkWidget *widget, GdkDragContext     *context,
+ void
+ setup_uri_drag (GtkWidget  *menuitem,
+ 		const char *uri,
+-		const char *icon)
++		const char *icon,
++		GdkDragAction action)
+ {
+ 	static GtkTargetEntry menu_item_targets[] = {
+ 		{ "text/uri-list", 0, 0 }
+@@ -1224,7 +1225,7 @@ setup_uri_drag (GtkWidget  *menuitem,
+ 	gtk_drag_source_set (menuitem,
+ 			     GDK_BUTTON1_MASK|GDK_BUTTON2_MASK,
+ 			     menu_item_targets, 1,
+-			     GDK_ACTION_COPY);
++			     action);
+ 
+ 	if (icon != NULL)
+ 		gtk_drag_source_set_icon_name (menuitem, icon);
+diff --git a/gnome-panel/menu.h b/gnome-panel/menu.h
+index 5c9b48d..8a4f808 100644
+--- a/gnome-panel/menu.h
++++ b/gnome-panel/menu.h
+@@ -50,7 +50,8 @@ void		setup_internal_applet_drag (GtkWidget             *menuitem,
+ 					    PanelActionButtonType  type);
+ void            setup_uri_drag             (GtkWidget  *menuitem,
+ 					    const char *uri,
+-					    const char *icon);
++					    const char *icon,
++						GdkDragAction action);
+ 
+ GtkWidget *	panel_create_menu              (void);
+ 
+diff --git a/gnome-panel/panel-menu-items.c b/gnome-panel/panel-menu-items.c
+index 901bbeb..cc4ba34 100644
+--- a/gnome-panel/panel-menu-items.c
++++ b/gnome-panel/panel-menu-items.c
+@@ -260,7 +260,7 @@ panel_menu_items_append_from_desktop (GtkWidget *menu,
+ 
+ 	uri = g_filename_to_uri (full_path, NULL, NULL);
+ 
+-	setup_uri_drag (item, uri, icon);
++	setup_uri_drag (item, uri, icon, GDK_ACTION_COPY);
+ 	g_free (uri);
+ 
+ 	g_key_file_free (key_file);
+@@ -307,7 +307,8 @@ panel_menu_items_append_place_item (const char *icon_name,
+ 	g_signal_connect (G_OBJECT (item), "button_press_event",
+ 			  G_CALLBACK (menu_dummy_button_press_event), NULL);
+ 
+-	setup_uri_drag (item, uri, icon_name);
++	if (g_str_has_prefix (uri, "file:")) /*Links only work for local files*/
++		setup_uri_drag (item, uri, icon_name, GDK_ACTION_LINK);
+ }
+ 
+ static GtkWidget *

@@ -1,0 +1,61 @@
+diff -up gnome-panel-2.27.91/gnome-panel/libpanel-util/panel-launch.c.search gnome-panel-2.27.91/gnome-panel/libpanel-util/panel-launch.c
+--- gnome-panel-2.27.91/gnome-panel/libpanel-util/panel-launch.c.search	2009-04-19 13:45:09.000000000 -0400
++++ gnome-panel-2.27.91/gnome-panel/libpanel-util/panel-launch.c	2009-08-25 11:33:36.666288948 -0400
+@@ -29,6 +29,8 @@
+ #include <gdk/gdk.h>
+ #include <gtk/gtk.h>
+ 
++#include <libgnome/gnome-desktop-item.h>
++
+ #include "panel-error.h"
+ #include "panel-glib.h"
+ 
+@@ -201,6 +203,23 @@ panel_launch_desktop_file (const char  *
+ }
+ 
+ gboolean
++panel_has_desktop_file (const char  *desktop_file)
++{
++	GnomeDesktopItem *ditem;
++
++	if (g_path_is_absolute (desktop_file))
++		ditem = gnome_desktop_item_new_from_file (desktop_file, 0, NULL);
++	else
++		ditem = gnome_desktop_item_new_from_basename (desktop_file, 0, NULL);
++	if (ditem != NULL) {
++		gnome_desktop_item_unref (ditem);
++		return TRUE;
++	}
++
++	return FALSE;	
++}
++
++gboolean
+ panel_launch_desktop_file_with_fallback (const char  *desktop_file,
+ 					 const char  *fallback_exec,
+ 					 GdkScreen   *screen,
+diff -up gnome-panel-2.27.91/gnome-panel/libpanel-util/panel-launch.h.search gnome-panel-2.27.91/gnome-panel/libpanel-util/panel-launch.h
+--- gnome-panel-2.27.91/gnome-panel/libpanel-util/panel-launch.h.search	2009-04-19 13:45:09.000000000 -0400
++++ gnome-panel-2.27.91/gnome-panel/libpanel-util/panel-launch.h	2009-08-25 11:33:36.667276923 -0400
+@@ -47,6 +47,8 @@ gboolean panel_launch_key_file (GKeyFile
+ 				GdkScreen  *screen,
+ 				GError    **error);
+ 
++gboolean panel_has_desktop_file (const char *desktop_file);
++
+ gboolean panel_launch_desktop_file (const char  *desktop_file,
+ 				    GdkScreen   *screen,
+ 				    GError     **error);
+diff -up gnome-panel-2.27.91/gnome-panel/panel-menu-items.c.about gnome-panel-2.27.91/gnome-panel/panel-menu-items.c
+--- gnome-panel-2.27.91/gnome-panel/panel-menu-items.c.about	2009-08-25 13:32:12.101272238 -0400
++++ gnome-panel-2.27.91/gnome-panel/panel-menu-items.c	2009-08-25 14:08:21.444015913 -0400
+@@ -1170,7 +1170,8 @@ panel_desktop_menu_item_append_menu (Gtk
+ 		add_menu_separator (menu);
+ 
+ 	panel_menu_items_append_from_desktop (menu, "gnome-yelp.desktop", NULL, FALSE);
+-	panel_menu_items_append_from_desktop (menu, "gnome-about.desktop", NULL, FALSE);
++	if (panel_has_desktop_file ("about-this-computer.desktop"))
++		panel_menu_items_append_from_desktop (menu, "about-this-computer.desktop", NULL, FALSE);
+ 
+ 	if (parent->priv->append_lock_logout)
+ 		panel_menu_items_append_lock_logout (menu);

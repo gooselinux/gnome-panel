@@ -1,0 +1,12 @@
+diff -up gnome-panel-2.28.0/help/clock/clock.omf.in.doc-category gnome-panel-2.28.0/help/clock/clock.omf.in
+--- gnome-panel-2.28.0/help/clock/clock.omf.in.doc-category	2010-05-03 18:05:04.849184198 -0400
++++ gnome-panel-2.28.0/help/clock/clock.omf.in	2010-05-03 18:08:20.370182871 -0400
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <omf>
+   <resource>
+-    <subject category="GNOME|Applets|Accessories"/>
++    <subject category="GNOME|Accessories"/>
+     <type>
+       user's guide
+     </type>

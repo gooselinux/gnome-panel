@@ -1,0 +1,36 @@
+diff -up gnome-panel-2.25.5/gnome-panel/panel-applet-frame.c.applet-error gnome-panel-2.25.5/gnome-panel/panel-applet-frame.c
+--- gnome-panel-2.25.5/gnome-panel/panel-applet-frame.c.applet-error	2009-01-20 09:04:47.000000000 -0500
++++ gnome-panel-2.25.5/gnome-panel/panel-applet-frame.c	2009-01-20 14:22:33.000000000 -0500
+@@ -1246,6 +1246,21 @@ panel_applet_frame_event_listener (Bonob
+ 		panel_applet_frame_set_size_hints_from_any (frame, any);
+ }
+ 
++static gboolean
++in_default_panel_config (const gchar *id)
++{
++	gchar *dir;
++	gboolean result;
++
++	dir = g_strconcat (PANEL_DEFAULTS_DIR, "/applets/", id, NULL);
++	result = gconf_client_dir_exists (panel_gconf_get_client (),
++                                          dir, 
++                                          NULL);
++        g_free (dir);
++
++	return result;
++}
++
+ static void
+ panel_applet_frame_activated (CORBA_Object  object,
+ 			      const char   *error_reason,
+@@ -1425,7 +1440,9 @@ panel_applet_frame_activated (CORBA_Obje
+ 	return;
+ 
+ error_out:
+-	panel_applet_frame_loading_failed (frame, frame_act->id);
++	if (!in_default_panel_config (frame_act->id)) {
++		panel_applet_frame_loading_failed (frame, frame_act->id);
++	}
+ 	if (widget)
+ 		g_object_unref (widget);
+ 	panel_applet_stop_loading (frame_act->id);
